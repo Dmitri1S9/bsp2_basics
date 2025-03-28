@@ -53,12 +53,11 @@ def matrix(M : np.ndarray) -> np.ndarray:
 
 	# NOTE: The following lines can be removed. They prevent the framework
     #       from crashing.
+    zero_matrix = np.zeros((3, 3), dtype=int)
+    row_1 = np.hstack((M, zero_matrix, M), dtype=int)
+    row_2 = np.hstack((zero_matrix, M, zero_matrix), dtype=int)
 
-    r = np.zeros((15,9), dtype=int)
-    for i in range(15):
-        for j in range(9):
-            if (i // 3 % 2 == 0) == (j // 3 % 2 == 0):
-                r[i,j] = M[i % 3, j % 3]
+    r = np.vstack((row_1, row_2, row_1, row_2, row_1))
 
     ### END STUDENT CODE
 
