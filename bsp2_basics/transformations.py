@@ -15,6 +15,10 @@ def define_transformations() -> List[np.ndarray]:
     #       from crashing.
 
     t1, t2, t3, t4 = np.zeros((3,3)), np.zeros((3,3)), np.zeros((3,3)), np.zeros((3,3)),
+    t1 = mtranslate(-3, 0) @ mrotate(55)
+    t2 = mrotate(55) @ mtranslate(-3, 0)
+    t3 = mtranslate(3, 1) @ mrotate(70) @ mscale(3, 2)
+    t4 = mscale(1, 3) @ mrotate(45)
 
     ### END STUDENT CODE
 
@@ -30,7 +34,11 @@ def mscale(sx : float, sy : float) -> np.ndarray:
 	# NOTE: The following lines can be removed. They prevent the framework
     #       from crashing.
 
-    m = np.zeros((3,3))
+    m = np.array([
+        [sx, 0, 0],
+        [0, sy, 0],
+        [0, 0, 1]
+    ])
 
     ### END STUDENT CODE
 
@@ -45,8 +53,12 @@ def mrotate(angle : float) -> np.ndarray:
 
 	# NOTE: The following lines can be removed. They prevent the framework
     #       from crashing.
-
-    m = np.zeros((3,3))
+    angle = np.deg2rad(angle)
+    m = np.array([
+        [np.cos(angle), -np.sin(angle), 0],
+        [np.sin(angle), np.cos(angle), 0],
+        [0, 0, 1]
+    ])
 
     ### END STUDENT CODE
 
@@ -62,7 +74,11 @@ def mtranslate(tx : float, ty : float) -> np.ndarray:
 	# NOTE: The following lines can be removed. They prevent the framework
     #       from crashing.
 
-    m = np.zeros((3,3))
+    m = np.array([
+        [1, 0, tx],
+        [0, 1, ty],
+        [0, 0, 1]
+    ])
 
     ### END STUDENT CODE
 
@@ -78,7 +94,7 @@ def transform_vertices(v : np.ndarray, m : np.ndarray) -> np.ndarray:
 	# NOTE: The following lines can be removed. They prevent the framework
     #       from crashing.
 
-    out = np.zeros((m.shape[0],v.shape[1]))
+    out = m @ v
 
     ### END STUDENT CODE
 
